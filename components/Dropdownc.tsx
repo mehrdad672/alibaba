@@ -74,7 +74,7 @@ const Dropdownc = ({options,label}: Props) => {
      <div
       
         id="dropdown"
-        className={` ${drop ? 'translate-y-0 opacity-100':'translate-y-[-20px] opacity-0'} z-10 w-36  shadow-lg top-[100%] transition-all duration-200 ease-in-out right-0 absolute  bg-white  rounded-lg border border-gray-100`}  
+        className={` ${drop ? 'translate-y-0 opacity-100 w-auto':'translate-y-[-20px] opacity-0 w-0'} z-10 w-36  shadow-lg top-[100%] transition-transform duration-200 ease-in-out right-0 absolute  bg-white  rounded-lg border border-gray-100`}  
       >
         <ul
           className="py-1 text-sm text-gray-700 "
