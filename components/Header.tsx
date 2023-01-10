@@ -12,7 +12,7 @@ const Header = (props: Props) => {
     const hotelOptions = [{title:'هتل',href:'#'},{title:'ویلا و اقامتگاه',href:'#'}]
     const ticketOptions = [{title:'پرواز داخلی',href:'#'},{title:'پرواز خارجی',href:'#'},{title:'قطار',href:'#'}]
   return (
-    <header className="flex justify-between items-center">
+    <header className="flex max-w-full justify-between items-center">
       <div className="flex space-x-2">
         <Headeritem Icon={UserCircleIcon} Title=' ورود یا ثبت نام' />
         <Headeritem Icon={PrinterIcon} Title='پیگیری خرید' />

@@ -13,10 +13,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section id="header" className="px-4 py-3 font-iran">
+      <section id="header" className="px-4 py-3 font-iran max-w-full">
         <Header />
       </section>
-      <main className="font-iran bg-[#f6f6f6]">
+      <main className="font-iran bg-[#f6f6f6] max-w-full">
         <section id="hero">
           <Hero source="/../public/hero-824e4df4.webp" />
         </section>

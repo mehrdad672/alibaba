@@ -1,19 +1,21 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from "next/link";
+import React, { ReactComponentElement } from "react";
+import { JsxElement } from "typescript";
 
 type Props = {
-    title: string;
-    children?:
-    React.ReactNode
-  };
+  title: string;
+  icon?: JsxElement;
+};
 
-const SearchTab = (props: Props) => {
+const SearchTab = ({ title, icon }: Props) => {
   return (
-    <Link href=''>
-        {props.children}
-        <span>{props.title}</span>
+    <Link href="">
+      <>
+        <span>{title}</span>
+        {icon}
+      </>
     </Link>
-  )
-}
+  );
+};
 
-export default SearchTab
+export default SearchTab;

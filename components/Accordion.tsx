@@ -9,7 +9,7 @@ type Props = {
 const Accordion = ({question , answer}: Props) => {
   const [isActive , setIsActive] = useState(false)
   return (
-    <div className="w-[70%] mx-auto rounded-xl px-8 py-4 border border-gray-300 z-30">
+    <div className="w-[70%] mx-auto rounded-xl px-8 py-4 border border-gray-300  max-w-full z-30">
       
         <button onClick={()=>setIsActive(!isActive)} className="py-2 w-full">
           <div className="flex justify-between items-center group">
