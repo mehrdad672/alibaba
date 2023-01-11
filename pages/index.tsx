@@ -1,7 +1,9 @@
 import Head from "next/head";
+import { useEffect } from "react";
 import Accordions from "../components/Accordions";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
+import Inputd from "../components/inputItem";
 import Search from "../components/Search";
 
 export default function Home() {
@@ -23,6 +25,7 @@ export default function Home() {
         <section className="z-30 translate-y-[-80px]" id="search">
           <Search />
         </section>
+        
         <section className="font-iran" id="fqa">
           <Accordions />
         </section>
