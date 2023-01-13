@@ -1,14 +1,8 @@
 import React, { useState } from "react";
-import Inputd from "./inputItem";
-import { RangeDatePicker, DatePicker as Dp } from "jalali-react-datepicker";
-import DatePicker from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import type { Value } from "react-multi-date-picker";
 import { Swap_Icon } from "../public/svgs";
 type Props = {};
 
-const AirplaneForm = (props: Props) => {
+const foreignAirplaneForm = (props: Props) => {
 
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
@@ -23,15 +17,10 @@ const swap = (e: React.FormEvent<HTMLButtonElement>)=>{
   setEnd(curStart)
   setStart(curEnd)
 }
-const oneTwoWayHandler = (e: { preventDefault: () => void; })=>{
-e.preventDefault()
-setIsTwoWay(!isTwoWay)
-
-}
   return (
     <form className="w-full max-w-full flex items-end space-y-5 py-5 px-16 flex-col h-[140px]">
       <div className="flex justify-end">
-        <select onChange={oneTwoWayHandler} className="text-right rounded-3xl border border-gray-300 text-gray-400 focus:outline-none">
+        <select className="text-right rounded-3xl border border-gray-300 text-gray-400 focus:outline-none">
           <option value="رفت">رفت</option>
           <option value="رقت و برگشت">رفت و برگشت</option>
         </select>
@@ -79,15 +68,15 @@ setIsTwoWay(!isTwoWay)
         <div className="flex mr-4 ">
           <div className={`relative h-6 w-[120px]`}>
             <input
-              className="peer disabled:bg-gray-100 rounded-l-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
+              className="peer rounded-l-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="date"
               id="return-date"
               value={endDate}
-              disabled={!isTwoWay}
+              disabled={isTwoWay}
               onChange={(e) => setEndDate(e.target.value)}
             />
             <label
-              className={`transition-all peer-disabled:bg-gray-100 duration-200  ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
+              className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 endDate && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
               htmlFor="return-date"
@@ -117,14 +106,14 @@ setIsTwoWay(!isTwoWay)
         <div className="flex justify-center flex-row-reverse items-center">
           <div className={`relative h-6 w-[120px] mr-3`}>
             <input
-              className="peer w-full text-right rounded-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
+              className="peer w-full rounded-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="number"
               id="passengers"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
             <label
-              className={`transition-all  duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
+              className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 amount && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
               htmlFor="passengers"
@@ -145,4 +134,4 @@ setIsTwoWay(!isTwoWay)
   );
 };
 
-export default AirplaneForm;
+export default foreignAirplaneForm;

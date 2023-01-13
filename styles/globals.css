@@ -1,8 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@font-face {
-    font-family: "iran";
-    src: url("../public/iran.ttf");
+@layer base {
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"] {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield !important;
   }
+  input[type="date"]:in-range::-webkit-datetime-edit-year-field,
+  input[type="date"]:in-range::-webkit-datetime-edit-month-field,
+  input[type="date"]:in-range::-webkit-datetime-edit-day-field,
+  input[type="date"]:in-range::-webkit-datetime-edit-text {
+    display: none;
+    color: transparent;
+  }
+  input[type="date"]:disabled::-webkit-datetime-edit-year-field,
+  input[type="date"]:disabled::-webkit-datetime-edit-month-field,
+  input[type="date"]:disabled::-webkit-datetime-edit-day-field,
+  input[type="date"]:disabled::-webkit-datetime-edit-text {
+    display: none;
+    color: transparent;
+  }
+ 
+}
+@font-face {
+  font-family: "iran";
+  src: url("../public/iran.ttf");
+}
