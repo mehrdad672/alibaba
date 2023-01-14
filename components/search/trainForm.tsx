@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Swap_Icon } from "../public/svgs";
-import JalaliDatePicker from "./dp";
+import { Swap_Icon } from "../../public/svgs";
+
 type Props = {};
-const AirplaneForm = (props: Props) => {
+const TrainForm = (props: Props) => {
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
   const [startDate, setStartDate] = useState<string>();
   const [endDate, setEndDate] = useState<string>();
   const [amount, setAmount] = useState<number | string>("");
   const [isTwoWay, setIsTwoWay] = useState<boolean>(false);
+  const [gender,setGender] = useState<string>('both')
   const swap = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const curStart = start;
@@ -22,15 +23,25 @@ const AirplaneForm = (props: Props) => {
   };
   return (
     <form className="w-full max-w-full flex items-end space-y-5 py-5 px-16 flex-col h-[140px]">
-      <div className="flex justify-end">
+      <div className="flex flex-row-reverse space-x-4 items-center justify-end">
         <select
           onChange={oneTwoWayHandler}
-          className="text-right rounded-3xl border border-gray-300 text-gray-600 focus:outline-none"
+          className="text-right rounded-3xl mx-4 border border-gray-300 text-gray-600 focus:outline-none"
         >
           <option className="text-gray-900 bg-white" value="رفت">
             رفت
           </option>
           <option value="رقت و برگشت">رفت و برگشت</option>
+        </select>
+        <select
+          onChange={e=>setGender(e.target.value)}
+          className="text-right rounded-3xl border border-gray-300 text-gray-600 focus:outline-none"
+        >
+          <option className="text-gray-900 bg-white" value='both'>
+            مسافرین عادی
+          </option>
+          <option value="man">ویژه برادران</option>
+          <option value="woman">ویژه خواهران</option>
         </select>
       </div>
       <div className="max-w-full flex justify-center items-center flex-row-reverse">
@@ -39,7 +50,7 @@ const AirplaneForm = (props: Props) => {
             <input
               className="peer text-right w-full rounded-r-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="text"
-              id="airplane_start"
+              id="train_start"
               value={start}
               onChange={(e) => setStart(e.target.value)}
             />
@@ -47,7 +58,7 @@ const AirplaneForm = (props: Props) => {
               className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 start && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="airplane_start"
+              htmlFor="train_start"
             >
               مبدا (شهر)
             </label>
@@ -62,7 +73,7 @@ const AirplaneForm = (props: Props) => {
             <input
               className="peer text-right pr-5 w-full rounded-l-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="text"
-              id="airplane_end"
+              id="train_end"
               value={end}
               onChange={(e) => setEnd(e.target.value)}
             />
@@ -70,7 +81,7 @@ const AirplaneForm = (props: Props) => {
               className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-3 peer-focus:-top-[45%] ${
                 end && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="airplane_end"
+              htmlFor="train_end"
             >
               مقصد (شهر)
             </label>
@@ -81,7 +92,7 @@ const AirplaneForm = (props: Props) => {
             <input
               className="peer disabled:bg-gray-100 rounded-l-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="date"
-              id="return-date"
+              id="train_date"
               value={endDate}
               disabled={!isTwoWay}
               onChange={(e) => setEndDate(e.target.value)}
@@ -90,7 +101,7 @@ const AirplaneForm = (props: Props) => {
               className={`transition-all  peer-disabled:bg-gray-100 duration-200  ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 endDate && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="return-date"
+              htmlFor="train_date"
             >
               تاریخ برگشت
             </label>
@@ -100,7 +111,7 @@ const AirplaneForm = (props: Props) => {
             <input
               className="peer rounded-r-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="date"
-              id="leave-date"
+              id="train_date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
             />
@@ -119,7 +130,7 @@ const AirplaneForm = (props: Props) => {
             <input
               className="peer w-full text-right rounded-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="number"
-              id="passengers"
+              id="train_passengers"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
@@ -127,7 +138,7 @@ const AirplaneForm = (props: Props) => {
               className={`transition-all  duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 amount && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="passengers"
+              htmlFor="train_passengers"
             >
               مسافران
             </label>
@@ -140,11 +151,11 @@ const AirplaneForm = (props: Props) => {
           جستجو
         </button>
         <div>
-      
+  
         </div>
       </div>
     </form>
   );
 };
 
-export default AirplaneForm;
+export default TrainForm;

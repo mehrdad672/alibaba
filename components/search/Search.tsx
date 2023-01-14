@@ -6,11 +6,13 @@ import {
   Airplanef_Icon,
   Bus_Icon,
   Train_Icon,
-} from "../public/svgs";
+} from "../../public/svgs";
 import Link from "next/link";
 import Inputd from "./inputItem";
 import AirplaneForm from "./airplaneForm";
 import ForeignAirplaneForm from "./foreignAirplaneForm";
+import TrainForm from "./trainForm";
+import BusForm from "./busForm";
 
 type Props = {};
 
@@ -27,10 +29,14 @@ const Search = (props: Props) => {
 
 const router = useRouter()
 useEffect(()=>{
-  if (router.asPath==='/'){setActiveTab('airplane')}
-  if (router.asPath==='/foreign'){setActiveTab('foreign')}
-  if (router.asPath==='/train'){setActiveTab('train')}
-  if (router.asPath==='/bus'){setActiveTab('bus')}
+  if (router.asPath==='/'){setActiveTab('airplane')
+  document.title = 'خرید بلیط هواپیما'}
+  if (router.asPath==='/foreign'){setActiveTab('foreign')
+  document.title = 'خرید بلیط هواپیمای خارجی'}
+  if (router.asPath==='/train'){setActiveTab('train')
+  document.title = 'خرید بلیط قطار'}
+  if (router.asPath==='/bus'){setActiveTab('bus')
+  document.title = 'خرید بلیط اتوبوس'}
 },[router.asPath])
 
   return (
@@ -93,6 +99,8 @@ useEffect(()=>{
       </div>
       {activeTab === 'airplane' && <AirplaneForm />}
       {activeTab === 'foreign' && <ForeignAirplaneForm />}
+      {activeTab === 'train' && <TrainForm />}
+      {activeTab === 'bus' && <BusForm />}
     </div>
   );
 };

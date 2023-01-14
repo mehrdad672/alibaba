@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import Accordions from "../components/Accordions";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
-import Inputd from "../components/inputItem";
-import Search from "../components/Search";
+import Inputd from "../components/search/inputItem";
+import Search from "../components/search/Search";
 
 export default function Home() {
   return (

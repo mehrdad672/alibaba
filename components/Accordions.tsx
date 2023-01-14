@@ -33,7 +33,7 @@ const Accordions = (props: Props) => {
     },
   ];
   return (
-    <div className=" bg-white max-w-full">
+    <div className=" bg-white w-[1200px] mx-auto max-w-full">
       {qanda.map((qa) => (
         <Accordion
           question={qa.question}
