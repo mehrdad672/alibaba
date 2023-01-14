@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SearchTab from "./SearchTab";
-
+import { useRouter } from "next/router";
 import {
   Airplane_Icon,
   Airplanef_Icon,
@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import Inputd from "./inputItem";
 import AirplaneForm from "./airplaneForm";
+import ForeignAirplaneForm from "./foreignAirplaneForm";
 
 type Props = {};
 
@@ -23,6 +24,14 @@ const Search = (props: Props) => {
   //  fetchData()
   // },[])
   const [activeTab, setActiveTab] = useState<string>("airplane");
+
+const router = useRouter()
+useEffect(()=>{
+  if (router.asPath==='/'){setActiveTab('airplane')}
+  if (router.asPath==='/foreign'){setActiveTab('foreign')}
+  if (router.asPath==='/train'){setActiveTab('train')}
+  if (router.asPath==='/bus'){setActiveTab('bus')}
+},[router.asPath])
 
   return (
     <div
@@ -42,7 +51,8 @@ const Search = (props: Props) => {
           } ${activeTab === "bus" && "right-[731px]"} `}
         ></div>
         <button
-          onClick={() => setActiveTab("bus")}
+          onClick={() => {setActiveTab("bus")
+          router.push('/?page=3', '/bus', { shallow: true })}}
           className={`flex flex-col py-2 w-[100px] items-center justify-center ${
             activeTab === "bus" && "text-blue-600"
           }`}
@@ -51,7 +61,8 @@ const Search = (props: Props) => {
           <span>اتوبوس</span>
         </button>
         <button
-          onClick={() => setActiveTab("train")}
+          onClick={() => {setActiveTab("train")
+          router.push('/?page=2', '/train', { shallow: true })}}
           className={`flex flex-col py-2 w-[100px] items-center justify-center ${
             activeTab === "train" && "text-blue-600"
           }`}
@@ -60,7 +71,8 @@ const Search = (props: Props) => {
           <span>قطار</span>
         </button>
         <button
-          onClick={() => setActiveTab("foreign")}
+          onClick={() => {setActiveTab("foreign")
+          router.push('/?page=2', '/foreign', { shallow: true })}}
           className={`flex flex-col py-2 w-[100px] items-center justify-center ${
             activeTab === "foreign" && "text-blue-600"
           }`}
@@ -69,7 +81,8 @@ const Search = (props: Props) => {
           <span>پرواز خارجی</span>
         </button>
         <button
-          onClick={() => setActiveTab("airplane")}
+          onClick={() => {setActiveTab("airplane")
+          router.push('/', undefined, { shallow: true })}}
           className={`flex flex-col py-2 w-[100px] items-center justify-center ${
             activeTab === "airplane" && "text-blue-600"
           }`}
@@ -78,7 +91,8 @@ const Search = (props: Props) => {
           <span>پرواز داخلی</span>
         </button>
       </div>
-      <AirplaneForm />
+      {activeTab === 'airplane' && <AirplaneForm />}
+      {activeTab === 'foreign' && <ForeignAirplaneForm />}
     </div>
   );
 };

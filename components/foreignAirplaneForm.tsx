@@ -1,27 +1,32 @@
 import React, { useState } from "react";
 import { Swap_Icon } from "../public/svgs";
 type Props = {};
-
-const foreignAirplaneForm = (props: Props) => {
-
+const ForeignAirplaneForm = (props: Props) => {
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
   const [startDate, setStartDate] = useState<string>();
   const [endDate, setEndDate] = useState<string>();
   const [amount, setAmount] = useState<number | string>("");
   const [isTwoWay, setIsTwoWay] = useState<boolean>(false);
-const swap = (e: React.FormEvent<HTMLButtonElement>)=>{
-  e.preventDefault()
-  const curStart = start;
-  const curEnd = end;
-  setEnd(curStart)
-  setStart(curEnd)
-}
+  const swap = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const curStart = start;
+    const curEnd = end;
+    setEnd(curStart);
+    setStart(curEnd);
+  };
+  const oneTwoWayHandler = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setIsTwoWay(!isTwoWay);
+  };
   return (
     <form className="w-full max-w-full flex items-end space-y-5 py-5 px-16 flex-col h-[140px]">
       <div className="flex justify-end">
-        <select className="text-right rounded-3xl border border-gray-300 text-gray-400 focus:outline-none">
-          <option value="رفت">رفت</option>
+        <select
+          onChange={oneTwoWayHandler}
+          className="text-right rounded-3xl border border-gray-300 text-gray-900 focus:outline-none"
+        >
+          <option className="text-gray-600" value="رفت">رفت</option>
           <option value="رقت و برگشت">رفت و برگشت</option>
         </select>
       </div>
@@ -31,7 +36,7 @@ const swap = (e: React.FormEvent<HTMLButtonElement>)=>{
             <input
               className="peer text-right w-full rounded-r-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="text"
-              id="airplane_start"
+              id="fairplane_start"
               value={start}
               onChange={(e) => setStart(e.target.value)}
             />
@@ -39,11 +44,14 @@ const swap = (e: React.FormEvent<HTMLButtonElement>)=>{
               className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 start && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="airplane_start"
+              htmlFor="fairplane_start"
             >
-              مبدا (شهر)
+              مبدا ( شهر و فرودگاه)
             </label>
-            <button onClick={swap} className="absolute border border-gray-200 bg-slate-100 rounded-full  -left-[10px] z-20 text-gray-400 top-1/2">
+            <button
+              onClick={swap}
+              className="absolute border border-gray-200 bg-slate-100 rounded-full  -left-[10px] z-20 text-gray-400 top-1/2"
+            >
               <Swap_Icon />
             </button>
           </div>
@@ -51,7 +59,7 @@ const swap = (e: React.FormEvent<HTMLButtonElement>)=>{
             <input
               className="peer text-right pr-5 w-full rounded-l-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="text"
-              id="airplane_end"
+              id="fairplane_end"
               value={end}
               onChange={(e) => setEnd(e.target.value)}
             />
@@ -59,27 +67,27 @@ const swap = (e: React.FormEvent<HTMLButtonElement>)=>{
               className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-3 peer-focus:-top-[45%] ${
                 end && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="airplane_end"
+              htmlFor="fairplane_end"
             >
-              مقصد (شهر)
+              مقصد (شهر و فرودگاه)
             </label>
           </div>
         </div>
         <div className="flex mr-4 ">
           <div className={`relative h-6 w-[120px]`}>
             <input
-              className="peer rounded-l-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
+              className="peer disabled:bg-gray-100 rounded-l-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="date"
-              id="return-date"
+              id="freturn-date"
               value={endDate}
-              disabled={isTwoWay}
+              disabled={!isTwoWay}
               onChange={(e) => setEndDate(e.target.value)}
             />
             <label
-              className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
+              className={`transition-all  peer-disabled:bg-gray-100 duration-200  ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 endDate && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="return-date"
+              htmlFor="freturn-date"
             >
               تاریخ برگشت
             </label>
@@ -89,7 +97,7 @@ const swap = (e: React.FormEvent<HTMLButtonElement>)=>{
             <input
               className="peer rounded-r-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="date"
-              id="leave-date"
+              id="fleave-date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
             />
@@ -97,7 +105,7 @@ const swap = (e: React.FormEvent<HTMLButtonElement>)=>{
               className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 startDate && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="leave-date"
+              htmlFor="fleave-date"
             >
               تاریخ رفت
             </label>
@@ -106,17 +114,17 @@ const swap = (e: React.FormEvent<HTMLButtonElement>)=>{
         <div className="flex justify-center flex-row-reverse items-center">
           <div className={`relative h-6 w-[120px] mr-3`}>
             <input
-              className="peer w-full rounded-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
+              className="peer w-full text-right rounded-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="number"
-              id="passengers"
+              id="fpassengers"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
             <label
-              className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
+              className={`transition-all  duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 amount && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="passengers"
+              htmlFor="fpassengers"
             >
               مسافران
             </label>
@@ -134,4 +142,4 @@ const swap = (e: React.FormEvent<HTMLButtonElement>)=>{
   );
 };
 
-export default foreignAirplaneForm;
+export default ForeignAirplaneForm;

@@ -1,38 +1,35 @@
 import React, { useState } from "react";
-import Inputd from "./inputItem";
-import { RangeDatePicker, DatePicker as Dp } from "jalali-react-datepicker";
-import DatePicker from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import type { Value } from "react-multi-date-picker";
 import { Swap_Icon } from "../public/svgs";
+import JalaliDatePicker from "./dp";
 type Props = {};
-
 const AirplaneForm = (props: Props) => {
-
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
   const [startDate, setStartDate] = useState<string>();
   const [endDate, setEndDate] = useState<string>();
   const [amount, setAmount] = useState<number | string>("");
   const [isTwoWay, setIsTwoWay] = useState<boolean>(false);
-const swap = (e: React.FormEvent<HTMLButtonElement>)=>{
-  e.preventDefault()
-  const curStart = start;
-  const curEnd = end;
-  setEnd(curStart)
-  setStart(curEnd)
-}
-const oneTwoWayHandler = (e: { preventDefault: () => void; })=>{
-e.preventDefault()
-setIsTwoWay(!isTwoWay)
-
-}
+  const swap = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const curStart = start;
+    const curEnd = end;
+    setEnd(curStart);
+    setStart(curEnd);
+  };
+  const oneTwoWayHandler = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setIsTwoWay(!isTwoWay);
+  };
   return (
     <form className="w-full max-w-full flex items-end space-y-5 py-5 px-16 flex-col h-[140px]">
       <div className="flex justify-end">
-        <select onChange={oneTwoWayHandler} className="text-right rounded-3xl border border-gray-300 text-gray-400 focus:outline-none">
-          <option value="رفت">رفت</option>
+        <select
+          onChange={oneTwoWayHandler}
+          className="text-right rounded-3xl border border-gray-300 text-gray-600 focus:outline-none"
+        >
+          <option className="text-gray-900 bg-white" value="رفت">
+            رفت
+          </option>
           <option value="رقت و برگشت">رفت و برگشت</option>
         </select>
       </div>
@@ -54,7 +51,10 @@ setIsTwoWay(!isTwoWay)
             >
               مبدا (شهر)
             </label>
-            <button onClick={swap} className="absolute border border-gray-200 bg-slate-100 rounded-full  -left-[10px] z-20 text-gray-400 top-1/2">
+            <button
+              onClick={swap}
+              className="absolute border border-gray-200 bg-slate-100 rounded-full  -left-[10px] z-20 text-gray-400 top-1/2"
+            >
               <Swap_Icon />
             </button>
           </div>
@@ -87,7 +87,7 @@ setIsTwoWay(!isTwoWay)
               onChange={(e) => setEndDate(e.target.value)}
             />
             <label
-              className={`transition-all peer-disabled:bg-gray-100 duration-200  ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
+              className={`transition-all  peer-disabled:bg-gray-100 duration-200  ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 endDate && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
               htmlFor="return-date"
@@ -139,7 +139,9 @@ setIsTwoWay(!isTwoWay)
         >
           جستجو
         </button>
-        <h1></h1>
+        <div>
+      
+        </div>
       </div>
     </form>
   );
