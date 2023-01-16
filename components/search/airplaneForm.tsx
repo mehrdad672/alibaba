@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Swap_Icon } from "../../public/svgs";
-
+import Autocomplete from "@mui/material/Autocomplete";
+import AutoCompleteInput from "./autoCompleteInput";
 type Props = {};
 const AirplaneForm = (props: Props) => {
   const [start, setStart] = useState<string>("");
@@ -140,7 +141,7 @@ const AirplaneForm = (props: Props) => {
           جستجو
         </button>
         <div>
-      
+         <AutoCompleteInput options={['مشهد','تهران','اهواز','شیراز']} width='120' label="تست" />
         </div>
       </div>
     </form>

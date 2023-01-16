@@ -1,15 +1,30 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useDetectClickOutside } from "react-detect-click-outside";
 import { Swap_Icon } from "../../public/svgs";
+import AutoComlete from "./autoComlete";
 
 type Props = {};
 const TrainForm = (props: Props) => {
+  const iRef = useRef<HTMLInputElement>(null);
+  const [startDrop, setStartDrop] = useState<boolean>(false);
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
   const [startDate, setStartDate] = useState<string>();
   const [endDate, setEndDate] = useState<string>();
   const [amount, setAmount] = useState<number | string>("");
   const [isTwoWay, setIsTwoWay] = useState<boolean>(false);
-  const [gender,setGender] = useState<string>('both')
+  const [gender, setGender] = useState<string>("both");
+
+  const startdDropHandler = () => {
+    if (startDrop) {
+      setStartDrop(false);
+      
+    }
+  };
+  const sRef = useDetectClickOutside({onTriggered: startdDropHandler});
+  const startChangeHandler = (newValue: string) => {
+    setStart(newValue);
+  };
   const swap = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const curStart = start;
@@ -34,10 +49,10 @@ const TrainForm = (props: Props) => {
           <option value="رقت و برگشت">رفت و برگشت</option>
         </select>
         <select
-          onChange={e=>setGender(e.target.value)}
+          onChange={(e) => setGender(e.target.value)}
           className="text-right rounded-3xl border border-gray-300 text-gray-600 focus:outline-none"
         >
-          <option className="text-gray-900 bg-white" value='both'>
+          <option className="text-gray-900 bg-white" value="both">
             مسافرین عادی
           </option>
           <option value="man">ویژه برادران</option>
@@ -46,13 +61,14 @@ const TrainForm = (props: Props) => {
       </div>
       <div className="max-w-full flex justify-center items-center flex-row-reverse">
         <div className="flex flex-row-reverse items-center justify-end">
-          <div className={`relative h-6 w-[212px]`}>
+          <div ref={sRef} onClick={()=>setStartDrop(true)}  className={`relative h-6 w-[212px]`}>
             <input
               className="peer text-right w-full rounded-r-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="text"
               id="train_start"
               value={start}
               onChange={(e) => setStart(e.target.value)}
+              ref={iRef}
             />
             <label
               className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
@@ -68,6 +84,17 @@ const TrainForm = (props: Props) => {
             >
               <Swap_Icon />
             </button>
+            <div 
+              className={`  opacity-0 w-0 top-0 transition-transform duration-200 absolute ${startDrop && 'top-12 !w-full opacity-100'} overflow-y-auto   border-gray-300 border rounded-xl shadow-md bg-white z-30`}
+            >
+              <p className="text-right pr-5 border border-b-gray-200 bg-slate-100 rounded-xl text-gray-500 w-full">
+                پرتردد
+              </p>
+              <AutoComlete
+                options={["تهران", "شیراز", "اهواز", "مشهد"]}
+                handler={startChangeHandler}
+              />
+            </div>
           </div>
           <div className={`relative h-6 w-[212px]`}>
             <input
@@ -111,7 +138,7 @@ const TrainForm = (props: Props) => {
             <input
               className="peer rounded-r-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="date"
-              id="train_date"
+              id="train_date2"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
             />
@@ -119,7 +146,7 @@ const TrainForm = (props: Props) => {
               className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 startDate && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="leave-date"
+              htmlFor="train-date2"
             >
               تاریخ رفت
             </label>
@@ -150,9 +177,7 @@ const TrainForm = (props: Props) => {
         >
           جستجو
         </button>
-        <div>
-  
-        </div>
+        <div></div>
       </div>
     </form>
   );
