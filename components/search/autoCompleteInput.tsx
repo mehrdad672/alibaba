@@ -6,11 +6,15 @@ type Props = {
   options: Array<string>;
   width:string
   label:string
+  changeHandler: (newValue: string) => void;
+  value:string
+  id:string
+  
 };
 
-const AutoCompleteInput = ({ options, width,label }: Props) => {
+const AutoCompleteInput = ({ options, width,label,changeHandler,value,id}: Props) => {
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>();
+  const [inputValue, setInputValue] = useState<string>('');
   const [optionsList, setOptionsList] = useState<string[]>(options);
   const clickHandler = (e: any) => {
     setIsActive(true);
@@ -18,24 +22,25 @@ const AutoCompleteInput = ({ options, width,label }: Props) => {
   const clickOutsideHandler = () => {
     setIsActive(false);
   };
-  const submitHandler = (value: string) => {
-    setInputValue(value);
+  const submitHandler = (newvalue: string) => {
+   changeHandler(newvalue)
     setIsActive(false);
   };
   const inputChangeHandler = (e: any) => {
-    setInputValue(e.target.value);
+    changeHandler(e.target.value);
+    
   };
   useEffect(() => {
     const oldOptions = optionsList
-    if(inputValue){
-        setOptionsList (oldOptions.filter(item=>item.includes(inputValue)))
+    if(value){
+        setOptionsList (oldOptions.filter(item=>item.includes(value)))
     }else{
         setOptionsList(options)
     }
     
 
-  }, [options, inputValue]);
-  const optionss = ["1", "2", "3"];
+  }, [options, value]);
+  
   const sRef = useDetectClickOutside({ onTriggered: clickOutsideHandler });
   const optList = optionsList.map((opt) => (
     <span
@@ -55,17 +60,17 @@ const AutoCompleteInput = ({ options, width,label }: Props) => {
       dir="rtl"
       autoComplete="off"
         onClick={clickHandler}
-        className="relative w-full text-right rounded-xl  border border-gray-300 p-2 focus:outline-none"
+        className={`relative w-full text-right ${isActive && 'border-gray-700'} rounded-xl  border border-gray-300 p-2 focus:outline-none`}
         type="text"
-        id="id"
-        value={inputValue}
+        id={id}
+        value={value}
         onChange={inputChangeHandler}
       />
       <label
         className={`transition-all  duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[40%] px-1 right-2 ${
           isActive && "!-top-[50%] !scale-75"
-        }   ${inputValue && "!-top-[50%] !scale-75"} `}
-        htmlFor="id"
+        }   ${value && "!-top-[50%] !scale-75"} `}
+        htmlFor={id}
       >
        {label}
       </label>

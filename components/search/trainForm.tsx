@@ -1,30 +1,16 @@
 import React, { useRef, useState } from "react";
-import { useDetectClickOutside } from "react-detect-click-outside";
 import { Swap_Icon } from "../../public/svgs";
-import AutoComlete from "./autoComlete";
-
+import AutoCompleteInput from "./autoCompleteInput";
 type Props = {};
-const TrainForm = (props: Props) => {
-  const iRef = useRef<HTMLInputElement>(null);
-  const [startDrop, setStartDrop] = useState<boolean>(false);
+const TrainForm: React.FC = (props: Props) => {
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
   const [startDate, setStartDate] = useState<string>();
   const [endDate, setEndDate] = useState<string>();
   const [amount, setAmount] = useState<number | string>("");
   const [isTwoWay, setIsTwoWay] = useState<boolean>(false);
-  const [gender, setGender] = useState<string>("both");
+  const [gender, setGender] = useState<string>('both');
 
-  const startdDropHandler = () => {
-    if (startDrop) {
-      setStartDrop(false);
-      
-    }
-  };
-  const sRef = useDetectClickOutside({onTriggered: startdDropHandler});
-  const startChangeHandler = (newValue: string) => {
-    setStart(newValue);
-  };
   const swap = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const curStart = start;
@@ -36,12 +22,18 @@ const TrainForm = (props: Props) => {
     e.preventDefault();
     setIsTwoWay(!isTwoWay);
   };
+  const startChangeHandler = (newValue: string) => {
+    setStart(newValue);
+  };
+  const endChangeHandler = (newValue: string) => {
+    setEnd(newValue);
+  };
   return (
     <form className="w-full max-w-full flex items-end space-y-5 py-5 px-16 flex-col h-[140px]">
-      <div className="flex flex-row-reverse space-x-4 items-center justify-end">
+      <div className="flex flex-row-reverse justify-end">
         <select
           onChange={oneTwoWayHandler}
-          className="text-right rounded-3xl mx-4 border border-gray-300 text-gray-600 focus:outline-none"
+          className="text-right rounded-3xl border mx-2 border-gray-300 text-gray-600 focus:outline-none"
         >
           <option className="text-gray-900 bg-white" value="رفت">
             رفت
@@ -60,66 +52,36 @@ const TrainForm = (props: Props) => {
         </select>
       </div>
       <div className="max-w-full flex justify-center items-center flex-row-reverse">
-        <div className="flex flex-row-reverse items-center justify-end">
-          <div ref={sRef} onClick={()=>setStartDrop(true)}  className={`relative h-6 w-[212px]`}>
-            <input
-              className="peer text-right w-full rounded-r-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
-              type="text"
-              id="train_start"
-              value={start}
-              onChange={(e) => setStart(e.target.value)}
-              ref={iRef}
-            />
-            <label
-              className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
-                start && "-top-[45%] scale-75"
-              } peer-focus:scale-75`}
-              htmlFor="train_start"
-            >
-              مبدا (شهر)
-            </label>
-            <button
-              onClick={swap}
-              className="absolute border border-gray-200 bg-slate-100 rounded-full  -left-[10px] z-20 text-gray-400 top-1/2"
-            >
-              <Swap_Icon />
-            </button>
-            <div 
-              className={`  opacity-0 w-0 top-0 transition-transform duration-200 absolute ${startDrop && 'top-12 !w-full opacity-100'} overflow-y-auto   border-gray-300 border rounded-xl shadow-md bg-white z-30`}
-            >
-              <p className="text-right pr-5 border border-b-gray-200 bg-slate-100 rounded-xl text-gray-500 w-full">
-                پرتردد
-              </p>
-              <AutoComlete
-                options={["تهران", "شیراز", "اهواز", "مشهد"]}
-                handler={startChangeHandler}
-              />
-            </div>
-          </div>
-          <div className={`relative h-6 w-[212px]`}>
-            <input
-              className="peer text-right pr-5 w-full rounded-l-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
-              type="text"
-              id="train_end"
-              value={end}
-              onChange={(e) => setEnd(e.target.value)}
-            />
-            <label
-              className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-3 peer-focus:-top-[45%] ${
-                end && "-top-[45%] scale-75"
-              } peer-focus:scale-75`}
-              htmlFor="train_end"
-            >
-              مقصد (شهر)
-            </label>
-          </div>
+        <div className="flex relative flex-row-reverse space-x-1 items-center justify-end">
+          <AutoCompleteInput
+            id="tstartInput"
+            value={start}
+            changeHandler={startChangeHandler}
+            options={["تهران", "اهواز", "شیراز"]}
+            width="212"
+            label="مبدا (شهر)"
+          />
+          <button
+            onClick={swap}
+            className=" border border-gray-200 bg-slate-100 rounded-full mt-4 z-20 text-gray-400 "
+          >
+            <Swap_Icon />
+          </button>
+          <AutoCompleteInput
+            id="tendInput"
+            value={end}
+            changeHandler={endChangeHandler}
+            options={["تهران", "اهواز", "شیراز"]}
+            width="212"
+            label="مقصد (شهر)"
+          />
         </div>
         <div className="flex mr-4 ">
           <div className={`relative h-6 w-[120px]`}>
             <input
               className="peer disabled:bg-gray-100 rounded-l-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="date"
-              id="train_date"
+              id="treturn-date"
               value={endDate}
               disabled={!isTwoWay}
               onChange={(e) => setEndDate(e.target.value)}
@@ -128,7 +90,7 @@ const TrainForm = (props: Props) => {
               className={`transition-all  peer-disabled:bg-gray-100 duration-200  ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 endDate && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="train_date"
+              htmlFor="treturn-date"
             >
               تاریخ برگشت
             </label>
@@ -138,7 +100,7 @@ const TrainForm = (props: Props) => {
             <input
               className="peer rounded-r-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="date"
-              id="train_date2"
+              id="tleave-date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
             />
@@ -146,7 +108,7 @@ const TrainForm = (props: Props) => {
               className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 startDate && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="train-date2"
+              htmlFor="tleave-date"
             >
               تاریخ رفت
             </label>
@@ -157,7 +119,7 @@ const TrainForm = (props: Props) => {
             <input
               className="peer w-full text-right rounded-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="number"
-              id="train_passengers"
+              id="tpassengers"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
@@ -165,7 +127,7 @@ const TrainForm = (props: Props) => {
               className={`transition-all  duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 amount && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="train_passengers"
+              htmlFor="tpassengers"
             >
               مسافران
             </label>
@@ -177,7 +139,6 @@ const TrainForm = (props: Props) => {
         >
           جستجو
         </button>
-        <div></div>
       </div>
     </form>
   );

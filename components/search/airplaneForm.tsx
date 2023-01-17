@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Swap_Icon } from "../../public/svgs";
-import Autocomplete from "@mui/material/Autocomplete";
 import AutoCompleteInput from "./autoCompleteInput";
 type Props = {};
-const AirplaneForm = (props: Props) => {
+const AirplaneForm: React.FC = (props: Props) => {
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
   const [startDate, setStartDate] = useState<string>();
   const [endDate, setEndDate] = useState<string>();
   const [amount, setAmount] = useState<number | string>("");
   const [isTwoWay, setIsTwoWay] = useState<boolean>(false);
+
   const swap = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const curStart = start;
@@ -20,6 +20,12 @@ const AirplaneForm = (props: Props) => {
   const oneTwoWayHandler = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setIsTwoWay(!isTwoWay);
+  };
+  const startChangeHandler = (newValue: string) => {
+    setStart(newValue);
+  };
+  const endChangeHandler = (newValue: string) => {
+    setEnd(newValue);
   };
   return (
     <form className="w-full max-w-full flex items-end space-y-5 py-5 px-16 flex-col h-[140px]">
@@ -35,47 +41,29 @@ const AirplaneForm = (props: Props) => {
         </select>
       </div>
       <div className="max-w-full flex justify-center items-center flex-row-reverse">
-        <div className="flex flex-row-reverse items-center justify-end">
-          <div className={`relative h-6 w-[212px]`}>
-            <input
-              className="peer text-right w-full rounded-r-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
-              type="text"
-              id="airplane_start"
-              value={start}
-              onChange={(e) => setStart(e.target.value)}
-            />
-            <label
-              className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
-                start && "-top-[45%] scale-75"
-              } peer-focus:scale-75`}
-              htmlFor="airplane_start"
-            >
-              مبدا (شهر)
-            </label>
-            <button
+        <div className="flex relative flex-row-reverse space-x-1 items-center justify-end">
+          <AutoCompleteInput
+          id="startInput"
+            value={start}
+            changeHandler={startChangeHandler}
+            options={[ "تهران", "اهواز", "شیراز"]}
+            width="212"
+            label="مبدا (شهر)"
+          />
+           <button
               onClick={swap}
-              className="absolute border border-gray-200 bg-slate-100 rounded-full  -left-[10px] z-20 text-gray-400 top-1/2"
+              className=" border border-gray-200 bg-slate-100 rounded-full mt-4 z-20 text-gray-400 "
             >
               <Swap_Icon />
             </button>
-          </div>
-          <div className={`relative h-6 w-[212px]`}>
-            <input
-              className="peer text-right pr-5 w-full rounded-l-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
-              type="text"
-              id="airplane_end"
-              value={end}
-              onChange={(e) => setEnd(e.target.value)}
-            />
-            <label
-              className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-3 peer-focus:-top-[45%] ${
-                end && "-top-[45%] scale-75"
-              } peer-focus:scale-75`}
-              htmlFor="airplane_end"
-            >
-              مقصد (شهر)
-            </label>
-          </div>
+          <AutoCompleteInput
+           id="endInput"
+            value={end}
+            changeHandler={endChangeHandler}
+            options={["تهران", "اهواز", "شیراز"]}
+            width="212"
+            label="مقصد (شهر)"
+          />
         </div>
         <div className="flex mr-4 ">
           <div className={`relative h-6 w-[120px]`}>
@@ -140,9 +128,6 @@ const AirplaneForm = (props: Props) => {
         >
           جستجو
         </button>
-        <div>
-         <AutoCompleteInput options={['مشهد','تهران','اهواز','شیراز']} width='120' label="تست" />
-        </div>
       </div>
     </form>
   );
