@@ -1,15 +1,24 @@
-import React from 'react'
-import Header from '../components/Header'
+import React from "react";
+import Header from "../components/Header";
+import QuickSearch from "../components/search/quickSearch";
 
-type Props = {}
+type Props = {};
 
 const flight = (props: Props) => {
   return (
     <>
-    <Header />
-    
+      <section className="bg-white shadow-lg">
+        <Header />
+        <QuickSearch />
+      </section>
+      <main>
+        <section id="search-result">
+            
+        </section>
+       
+      </main>
     </>
-  )
-}
+  );
+};
 
-export default flight
+export default flight;
