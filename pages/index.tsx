@@ -22,7 +22,7 @@ export default function Home() {
         <section id="hero">
           <Hero source="/../public/hero-824e4df4.webp" />
         </section>
-        <section className="z-30 translate-y-[-80px]" id="search">
+        <section className="z-30 translate-y-[-80px] font-iran" id="search">
           <Search />
         </section>
         
