@@ -22,12 +22,14 @@ const AutoCompleteInput = ({ options, width,label,changeHandler,value,id,isValid
   const clickOutsideHandler = () => {
     setIsActive(false);
   };
-  const submitHandler = (newvalue: string) => {
-   changeHandler(newvalue)
+  const submitHandler = (newValue: string) => {
+   changeHandler(newValue)
+ 
     setIsActive(false);
   };
   const inputChangeHandler = (e: any) => {
     changeHandler(e.target.value);
+    
     
   };
   useEffect(() => {

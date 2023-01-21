@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 import { Swap_Icon } from "../../public/svgs";
 import AutoCompleteInput from "./autoCompleteInput";
@@ -5,14 +6,17 @@ type Props = {};
 const AirplaneForm: React.FC = (props: Props) => {
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
-  const [startDate, setStartDate] = useState<string>('');
-  const [endDate, setEndDate] = useState<string>('');
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
   const [amount, setAmount] = useState<number | string>("");
   const [isTwoWay, setIsTwoWay] = useState<boolean>(false);
-  const [startIsValid,setStartIsValid]=useState(true)
-  const [endIsValid,setEndIsValid]=useState(true)
-  const [endDateIsValid,setEndDateIsValid]=useState(true)
-  const [startDateIsValid,setStartDateIsValid]=useState(true)
+  const [startIsValid, setStartIsValid] = useState(true);
+  const [endIsValid, setEndIsValid] = useState(true);
+  const [endDateIsValid, setEndDateIsValid] = useState(true);
+  const [startDateIsValid, setStartDateIsValid] = useState(true);
+  
+  const router = useRouter()
+
   const swap = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const curStart = start;
@@ -26,19 +30,40 @@ const AirplaneForm: React.FC = (props: Props) => {
   };
   const startChangeHandler = (newValue: string) => {
     setStart(newValue);
-    setStartIsValid(true)
+    setStartIsValid(true);
   };
   const endChangeHandler = (newValue: string) => {
     setEnd(newValue);
-    setEndIsValid(true)
+    setEndIsValid(true);
   };
-  const submitHandler = (e:React.FormEvent<HTMLButtonElement>)=>{
-      e.preventDefault()
-      if (start.trim().length===0){setStartIsValid(false)}
-      if (end.trim().length===0){setEndIsValid(false)}
-      if (startDate.trim().length===0){setStartDateIsValid(false)}
-      if (endDate.trim().length===0){setEndDateIsValid(false)}
-  }
+  const submitHandler = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    let formIsValid=true;
+    if (start.trim().length === 0) {
+      setStartIsValid(false);
+      formIsValid=false
+    }
+    if (end.trim().length === 0) {
+      setEndIsValid(false);
+      formIsValid=false
+    }
+    if (startDate.trim().length === 0) {
+      setStartDateIsValid(false);
+      formIsValid=false
+    }
+    if (endDate.trim().length === 0) {
+      setEndDateIsValid(false);
+      formIsValid=false
+    }
+    if (formIsValid) {
+
+      router.push({
+        pathname: '/flight',
+        query: { from: 'ahz',to:'shz' },
+      })
+    }
+
+  };
   return (
     <form className="w-full max-w-full flex items-end space-y-5 py-5 px-16 flex-col h-[140px]">
       <div className="flex justify-end">
@@ -55,23 +80,23 @@ const AirplaneForm: React.FC = (props: Props) => {
       <div className="max-w-full flex justify-center items-center flex-row-reverse">
         <div className="flex relative flex-row-reverse space-x-1 items-center justify-end">
           <AutoCompleteInput
-          isValid={startIsValid}
-          id="startInput"
+            isValid={startIsValid}
+            id="startInput"
             value={start}
             changeHandler={startChangeHandler}
-            options={[ "تهران", "اهواز", "شیراز"]}
+            options={["تهران", "اهواز", "شیراز"]}
             width="212"
             label="مبدا (شهر)"
           />
-           <button
-              onClick={swap}
-              className=" border border-gray-200 bg-slate-100 rounded-full mt-4 z-20 text-gray-400 "
-            >
-              <Swap_Icon />
-            </button>
+          <button
+            onClick={swap}
+            className=" border border-gray-200 bg-slate-100 rounded-full mt-4 z-20 text-gray-400 "
+          >
+            <Swap_Icon />
+          </button>
           <AutoCompleteInput
-          isValid={endIsValid}
-           id="endInput"
+            isValid={endIsValid}
+            id="endInput"
             value={end}
             changeHandler={endChangeHandler}
             options={["تهران", "اهواز", "شیراز"]}
@@ -136,7 +161,8 @@ const AirplaneForm: React.FC = (props: Props) => {
             </label>
           </div>
         </div>
-        <button onClick={submitHandler}
+        <button
+          onClick={submitHandler}
           className="w-32 mt-[15px] mr-10 px-4 py-2 rounded-2xl bg-[#fdb713]"
           type="submit"
         >

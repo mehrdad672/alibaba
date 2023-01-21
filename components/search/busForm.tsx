@@ -6,8 +6,6 @@ const BusForm = (props: Props) => {
   const [end, setEnd] = useState<string>("");
   const [startDate, setStartDate] = useState<string>();
  
-  
-
   const swap = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const curStart = start;

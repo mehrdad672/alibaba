@@ -9,8 +9,11 @@ const TrainForm: React.FC = (props: Props) => {
   const [endDate, setEndDate] = useState<string>();
   const [amount, setAmount] = useState<number | string>("");
   const [isTwoWay, setIsTwoWay] = useState<boolean>(false);
-  const [gender, setGender] = useState<string>('both');
-
+  const [gender, setGender] = useState<string>("both");
+  const [startIsValid, setStartIsValid] = useState(true);
+  const [endIsValid, setEndIsValid] = useState(true);
+  const [endDateIsValid, setEndDateIsValid] = useState(true);
+  const [startDateIsValid, setStartDateIsValid] = useState(true);
   const swap = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const curStart = start;
@@ -24,9 +27,11 @@ const TrainForm: React.FC = (props: Props) => {
   };
   const startChangeHandler = (newValue: string) => {
     setStart(newValue);
+    setStartIsValid(true);
   };
   const endChangeHandler = (newValue: string) => {
     setEnd(newValue);
+    setEndIsValid(true);
   };
   return (
     <form className="w-full max-w-full flex items-end space-y-5 py-5 px-16 flex-col h-[140px]">
@@ -54,6 +59,7 @@ const TrainForm: React.FC = (props: Props) => {
       <div className="max-w-full flex justify-center items-center flex-row-reverse">
         <div className="flex relative flex-row-reverse space-x-1 items-center justify-end">
           <AutoCompleteInput
+            isValid={startIsValid}
             id="tstartInput"
             value={start}
             changeHandler={startChangeHandler}
@@ -68,6 +74,7 @@ const TrainForm: React.FC = (props: Props) => {
             <Swap_Icon />
           </button>
           <AutoCompleteInput
+            isValid={endIsValid}
             id="tendInput"
             value={end}
             changeHandler={endChangeHandler}
