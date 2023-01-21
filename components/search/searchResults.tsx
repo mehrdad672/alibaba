@@ -10,7 +10,7 @@ const SearchResults = (props: Props) => {
   const router = useRouter();
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/flights")
+    fetch("https://alibaba-45er.vercel.app/api/flights")
       .then((res) => res.json())
       .then((data) => setAllTickets(data));
   }, [router]);
