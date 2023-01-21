@@ -11,7 +11,7 @@ const flight = (props: Props) => {
   const [allTickets, setAllTickets] = useState<any>([]);
   const router = useRouter();
   useEffect(() => {
-    fetch("http://localhost:3000/api/flights")
+    fetch("/api/flights")
       .then((res) => res.json())
       .then((data) => setAllTickets(data));
   }, [router]);
