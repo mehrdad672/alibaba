@@ -9,10 +9,10 @@ type Props = {
   changeHandler: (newValue: string) => void;
   value:string
   id:string
-  
+  isValid:boolean
 };
 
-const AutoCompleteInput = ({ options, width,label,changeHandler,value,id}: Props) => {
+const AutoCompleteInput = ({ options, width,label,changeHandler,value,id,isValid}: Props) => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
   const [optionsList, setOptionsList] = useState<string[]>(options);
@@ -60,14 +60,14 @@ const AutoCompleteInput = ({ options, width,label,changeHandler,value,id}: Props
       dir="rtl"
       autoComplete="off"
         onClick={clickHandler}
-        className={`relative w-full text-right ${isActive && 'border-gray-700'} rounded-xl  border border-gray-300 p-2 focus:outline-none`}
+        className={`${!isValid && '!border-rose-500  '} relative w-full text-right ${isActive && 'border-gray-700'} rounded-xl  border border-gray-300 p-2 focus:outline-none`}
         type="text"
         id={id}
         value={value}
         onChange={inputChangeHandler}
       />
       <label
-        className={`transition-all  duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[40%] px-1 right-2 ${
+        className={`transition-all ${!isValid && 'text-rose-500'}  duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[40%] px-1 right-2 ${
           isActive && "!-top-[50%] !scale-75"
         }   ${value && "!-top-[50%] !scale-75"} `}
         htmlFor={id}

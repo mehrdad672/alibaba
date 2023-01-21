@@ -14,10 +14,10 @@ const QuickSearch = (props: Props) => {
     setIsActive(!isActive);
   };
   return (
-    <div>
+    <div className={`w-full bg-white transition-all duration-200 ease-in-out h-[72px] ${isActive && '!h-[172px]'}`}>
       <div
         onClick={activeHandler}
-        className={`flex space-x-8 w-full visible justify-center transition-tranform duration-200 ease-in-out items-center cursor-pointer p-4 ${isActive && ' !h-0 opacity-0'}`}
+        className={`flex space-x-8 w-full visible justify-center transition-tranform duration-200 ease-in-out items-center cursor-pointer p-4 ${isActive && ' hidden'}`}
       >
         <Gobbler_Icon />
         <p className="text-gray-400"> یک مسافر</p>
@@ -30,7 +30,7 @@ const QuickSearch = (props: Props) => {
           <Airplanetoleft_Icon />
         </div>
       </div>
-      <div className={`relative w-full flex justify-center h-auto transition-all duration-200 ease-in-out ${!isActive && 'h-0 invisible  opacity-0'} `}>
+      <div className={`relative w-full flex justify-center h-auto transition-all duration-200 ease-in-out ${!isActive && ' hidden  '} `}>
         <AirplaneForm />
             <button onClick={activeHandler} className="text-cyan-500 absolute top-0 left-20 bg-white rounded-3xl hover:bg-slate-300 px-2 py-1" type="button"> x بستن</button>
       </div>

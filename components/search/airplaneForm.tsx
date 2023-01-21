@@ -5,11 +5,14 @@ type Props = {};
 const AirplaneForm: React.FC = (props: Props) => {
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
-  const [startDate, setStartDate] = useState<string>();
-  const [endDate, setEndDate] = useState<string>();
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
   const [amount, setAmount] = useState<number | string>("");
   const [isTwoWay, setIsTwoWay] = useState<boolean>(false);
-
+  const [startIsValid,setStartIsValid]=useState(true)
+  const [endIsValid,setEndIsValid]=useState(true)
+  const [endDateIsValid,setEndDateIsValid]=useState(true)
+  const [startDateIsValid,setStartDateIsValid]=useState(true)
   const swap = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const curStart = start;
@@ -23,10 +26,19 @@ const AirplaneForm: React.FC = (props: Props) => {
   };
   const startChangeHandler = (newValue: string) => {
     setStart(newValue);
+    setStartIsValid(true)
   };
   const endChangeHandler = (newValue: string) => {
     setEnd(newValue);
+    setEndIsValid(true)
   };
+  const submitHandler = (e:React.FormEvent<HTMLButtonElement>)=>{
+      e.preventDefault()
+      if (start.trim().length===0){setStartIsValid(false)}
+      if (end.trim().length===0){setEndIsValid(false)}
+      if (startDate.trim().length===0){setStartDateIsValid(false)}
+      if (endDate.trim().length===0){setEndDateIsValid(false)}
+  }
   return (
     <form className="w-full max-w-full flex items-end space-y-5 py-5 px-16 flex-col h-[140px]">
       <div className="flex justify-end">
@@ -43,6 +55,7 @@ const AirplaneForm: React.FC = (props: Props) => {
       <div className="max-w-full flex justify-center items-center flex-row-reverse">
         <div className="flex relative flex-row-reverse space-x-1 items-center justify-end">
           <AutoCompleteInput
+          isValid={startIsValid}
           id="startInput"
             value={start}
             changeHandler={startChangeHandler}
@@ -57,6 +70,7 @@ const AirplaneForm: React.FC = (props: Props) => {
               <Swap_Icon />
             </button>
           <AutoCompleteInput
+          isValid={endIsValid}
            id="endInput"
             value={end}
             changeHandler={endChangeHandler}
@@ -122,7 +136,7 @@ const AirplaneForm: React.FC = (props: Props) => {
             </label>
           </div>
         </div>
-        <button
+        <button onClick={submitHandler}
           className="w-32 mt-[15px] mr-10 px-4 py-2 rounded-2xl bg-[#fdb713]"
           type="submit"
         >
