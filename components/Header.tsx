@@ -8,9 +8,9 @@ import Image from "next/image";
 type Props = {};
 
 const Header = (props: Props) => {
-    const moreOptions = [{title:'علی بابا پلاس',href:'#'},{title:'مجله علی بابا',href:'#'},{title:'بیمه مسافرتی',href:'#'}]
-    const hotelOptions = [{title:'هتل',href:'#'},{title:'ویلا و اقامتگاه',href:'#'}]
-    const ticketOptions = [{title:'پرواز داخلی',href:'#'},{title:'پرواز خارجی',href:'#'},{title:'قطار',href:'#'}]
+    const moreOptions = [{title:'علی بابا پلاس',href:'/'},{title:'مجله علی بابا',href:'/'},{title:'بیمه مسافرتی',href:'/'}]
+    const hotelOptions = [{title:'هتل',href:'/'},{title:'ویلا و اقامتگاه',href:'/'}]
+    const ticketOptions = [{title:'پرواز داخلی',href:'/'},{title:'پرواز خارجی',href:'/'},{title:'قطار',href:'/'}]
   return (
     <header className="flex max-w-full justify-between items-center">
       <div className="flex space-x-2">

@@ -1,0 +1,73 @@
+.slider {
+  position: relative !important ;
+  width: 200px !important ;
+}
+
+.slider__track,
+.slider__range {
+  border-radius: 3px !important ;
+  height: 5px !important;
+  position: absolute !important;
+}
+
+.slider__track {
+  background-color: #ced4da !important;
+  width: 100%;
+  z-index: 1;
+}
+
+.slider__range {
+  background-color: #9fe5e1 !important;
+  z-index: 2;
+}
+
+/* Removing the default appearance */
+.thumb,
+.thumb::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.thumb {
+  pointer-events: none !important;
+  position: absolute !important;
+  height: 0 !important;
+  width: 200px !important;
+  outline: none !important;
+}
+
+.thumb--zindex-3 {
+  z-index: 3 !important;
+}
+
+.thumb--zindex-4 {
+  z-index: 4 !important;
+}
+
+/* For Chrome browsers */
+.thumb::-webkit-slider-thumb {
+  background-color: #f1f5f7 !important;
+  border: none !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 1px 1px #ced4da !important;
+  cursor: pointer !important;
+  height: 18px !important;
+  width: 18px !important;
+  margin-top: 4px !important;
+  pointer-events: all !important;
+  position: relative !important;
+}
+
+/* For Firefox browsers */
+.thumb::-moz-range-thumb {
+  background-color: #f1f5f7 !important;
+  border: none !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 1px 1px #ced4da !important;
+  cursor: pointer !important;
+  height: 18px !important;
+  width: 18px !important;
+  margin-top: 4px !important;
+  pointer-events: all !important;
+  position: relative !important;
+}

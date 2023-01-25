@@ -12,7 +12,7 @@ const flight = (props: Props) => {
         <Header />
         <QuickSearch />
       </section>
-      <main>
+      <main className="bg-[#f6f6f6]">
         <section id="search-result">
           <SearchResults />
         </section>

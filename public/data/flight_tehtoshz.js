@@ -7,7 +7,7 @@ const flightsData = () => {
       arrivalTime: [  11, 30],
       company: "آسمان",
       airplane: "airbus 310",
-      price: 103500,
+      price: 10035000,
       ticketType: "سیستمی",
     },
     {
@@ -15,7 +15,7 @@ const flightsData = () => {
       arrivalTime: [  22, 37],
       company: "کارون",
       airplane: "fooker 100",
-      price: 956500,
+      price: 9565000,
       ticketType: "سیستمی",
     },
     {
@@ -23,7 +23,7 @@ const flightsData = () => {
       arrivalTime: [  10, 30],
       company: "آتا",
       airplane: "boeing md",
-      price: 107500,
+      price: 10075000,
       ticketType: "چارتری",
     },
     {
@@ -31,7 +31,7 @@ const flightsData = () => {
       arrivalTime: [8, 20],
       company: "ایران ایر",
       airplane: "toplof ",
-      price: 887500,
+      price: 8875000,
       ticketType: "سیستمی",
     },
     {
@@ -39,7 +39,7 @@ const flightsData = () => {
       arrivalTime: [18, 43],
       company: "آسمان",
       airplane: "airbus 310",
-      price: 935500,
+      price: 9355000,
       ticketType: "سیستمی",
     },
     {
@@ -47,7 +47,7 @@ const flightsData = () => {
       arrivalTime: [14, 18],
       company: "آسمان",
       airplane: "boeing 747",
-      price: 1245000,
+      price: 12450000,
       ticketType: "چارتری",
     },
     {
@@ -55,7 +55,7 @@ const flightsData = () => {
       arrivalTime: [ 21, 39],
       company: "ماهان",
       airplane: "airbus 147",
-      price: 107500,
+      price: 10075000,
       ticketType: "سیستمی",
     },
     {
@@ -63,7 +63,7 @@ const flightsData = () => {
       arrivalTime: [6, 35],
       company: "زاگرس",
       airplane: "boeing 747",
-      price: 104000,
+      price: 10040000,
       ticketType: "سیستمی",
     },
    
@@ -72,7 +72,7 @@ const flightsData = () => {
       arrivalTime: [  23, 35],
       company: "ماهان",
       airplane: "fooker 100",
-      price: 756500,
+      price: 7565000,
       ticketType: "چارتری",
     },
   ];
