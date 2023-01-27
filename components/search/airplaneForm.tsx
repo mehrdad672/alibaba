@@ -82,7 +82,7 @@ const AirplaneForm: React.FC = (props: Props) => {
       <div className="max-w-full flex justify-center items-center flex-row-reverse">
         <div className="flex relative flex-row-reverse space-x-1 items-center justify-end">
           <AutoCompleteInput
-            nextClickHandler={nextClickHandler}
+           
             isValid={startIsValid}
             id="startInput"
             value={start}
@@ -98,7 +98,7 @@ const AirplaneForm: React.FC = (props: Props) => {
             <Swap_Icon />
           </button>
           <AutoCompleteInput
-            nextClickHandler={nextClickHandler}
+           
             isValid={endIsValid}
             id="endInput"
             value={end}

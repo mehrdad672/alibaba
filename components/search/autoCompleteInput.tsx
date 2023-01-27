@@ -7,7 +7,7 @@ type Props = {
   width: string;
   label: string;
   changeHandler: (newValue: string) => void;
-  nextClickHandler: (id: string) => void;
+  
   value: string;
   id: string;
   isValid: boolean;
@@ -21,7 +21,7 @@ const AutoCompleteInput = ({
   value,
   id,
   isValid,
-  nextClickHandler,
+
 }: Props) => {
   const [isActive, setIsActive] = useState<boolean>(false);
 
@@ -34,7 +34,7 @@ const AutoCompleteInput = ({
   };
   const submitHandler = (newValue: string) => {
     changeHandler(newValue);
-    nextClickHandler("endInput");
+ 
     setIsActive(false);
   };
   const inputChangeHandler = (e: any) => {
