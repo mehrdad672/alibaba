@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import SearchTab from "./SearchTab";
 import { useRouter } from "next/router";
 import {
@@ -17,27 +17,51 @@ import BusForm from "./busForm";
 type Props = {};
 
 const Search = (props: Props) => {
-  // useEffect(()=> {
-  //  async function fetchData () {
-  //   const request= await api.get('train.json')
-  //   console.log(request)
-  //   return request
-  //  }
-  //  fetchData()
-  // },[])
   const [activeTab, setActiveTab] = useState<string>("airplane");
+  const [indicatiorPos, setIndicatorPos] = useState<number>(0);
+  const [screenWidth, setScreenWidth] = useState<number>();
+  const router = useRouter();
+  useLayoutEffect(() => {
+    var elem = document.getElementById("airplane_tab");
+    if (router.asPath === "/") {
+      setActiveTab("airplane");
+      document.title = "خرید بلیط هواپیما";
+    }
+    if (router.asPath === "/foreign") {
+      setActiveTab("foreign");
+      document.title = "خرید بلیط هواپیمای خارجی";
+      var elem = document.getElementById("fairplane_tab");
+    }
+    if (router.asPath === "/train") {
+      setActiveTab("train");
+      document.title = "خرید بلیط قطار";
+      var elem = document.getElementById("train_tab");
+    }
+    if (router.asPath === "/bus") {
+      setActiveTab("bus");
+      document.title = "خرید بلیط اتوبوس";
+      var elem = document.getElementById("bus_tab");
+    }
+    if (elem) {
+      setIndicatorPos(elem.offsetLeft);
+    }
+  }, [router.asPath, screenWidth]);
 
-const router = useRouter()
-useEffect(()=>{
-  if (router.asPath==='/'){setActiveTab('airplane')
-  document.title = 'خرید بلیط هواپیما'}
-  if (router.asPath==='/foreign'){setActiveTab('foreign')
-  document.title = 'خرید بلیط هواپیمای خارجی'}
-  if (router.asPath==='/train'){setActiveTab('train')
-  document.title = 'خرید بلیط قطار'}
-  if (router.asPath==='/bus'){setActiveTab('bus')
-  document.title = 'خرید بلیط اتوبوس'}
-},[router.asPath])
+  useEffect(() => {
+    function handleResize() {
+      setScreenWidth(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const tab = document.getElementById("tab-indicator");
+    if (tab) {
+      tab.style.left = indicatiorPos.toString() + "px";
+    }
+  }, [indicatiorPos]);
 
   return (
     <div
@@ -50,15 +74,14 @@ useEffect(()=>{
       >
         <div
           id="tab-indicator"
-          className={`w-[100px]  max-w-full h-[5px] absolute bottom-0 tranirion-all duration-150 ease-in-out bg-blue-600 rounded-t-2xl ${
-            activeTab === "airplane" && "right-[335px]"
-          } ${activeTab === "foreign" && "right-[467px]"} ${
-            activeTab === "train" && "right-[599px]"
-          } ${activeTab === "bus" && "right-[731px]"} `}
+          className={`w-[100px]  max-w-full h-[5px] absolute bottom-0 tranirion-all duration-150 ease-in-out bg-blue-600 rounded-t-2xl  `}
         ></div>
         <button
-          onClick={() => {setActiveTab("bus")
-          router.push('/?page=3', '/bus', { shallow: true })}}
+          id="bus_tab"
+          onClick={() => {
+            setActiveTab("bus");
+            router.push("/?page=3", "/bus", { shallow: true });
+          }}
           className={`flex flex-col py-2 w-[100px] items-center justify-center ${
             activeTab === "bus" && "text-blue-600"
           }`}
@@ -67,8 +90,11 @@ useEffect(()=>{
           <span>اتوبوس</span>
         </button>
         <button
-          onClick={() => {setActiveTab("train")
-          router.push('/?page=2', '/train', { shallow: true })}}
+          id="train_tab"
+          onClick={() => {
+            setActiveTab("train");
+            router.push("/?page=2", "/train", { shallow: true });
+          }}
           className={`flex flex-col py-2 w-[100px] items-center justify-center ${
             activeTab === "train" && "text-blue-600"
           }`}
@@ -77,8 +103,11 @@ useEffect(()=>{
           <span>قطار</span>
         </button>
         <button
-          onClick={() => {setActiveTab("foreign")
-          router.push('/?page=2', '/foreign', { shallow: true })}}
+          id="fairplane_tab"
+          onClick={() => {
+            setActiveTab("foreign");
+            router.push("/?page=2", "/foreign", { shallow: true });
+          }}
           className={`flex flex-col py-2 w-[100px] items-center justify-center ${
             activeTab === "foreign" && "text-blue-600"
           }`}
@@ -87,8 +116,11 @@ useEffect(()=>{
           <span>پرواز خارجی</span>
         </button>
         <button
-          onClick={() => {setActiveTab("airplane")
-          router.push('/', undefined, { shallow: true })}}
+          id="airplane_tab"
+          onClick={() => {
+            setActiveTab("airplane");
+            router.push("/", undefined, { shallow: true });
+          }}
           className={`flex flex-col py-2 w-[100px] items-center justify-center ${
             activeTab === "airplane" && "text-blue-600"
           }`}
@@ -97,10 +129,15 @@ useEffect(()=>{
           <span>پرواز داخلی</span>
         </button>
       </div>
-      {activeTab === 'airplane' && <AirplaneForm />}
-      {activeTab === 'foreign' && <ForeignAirplaneForm />}
-      {activeTab === 'train' && <TrainForm />}
-      {activeTab === 'bus' && <BusForm />}
+      {activeTab === "airplane" ? (
+        <AirplaneForm />
+      ) : activeTab === "foreign" ? (
+        <ForeignAirplaneForm />
+      ) : activeTab === "train" ? (
+        <TrainForm />
+      ) : (
+        <BusForm />
+      )}
     </div>
   );
 };

@@ -14,7 +14,7 @@ const QuickSearch = (props: Props) => {
     setIsActive(!isActive);
   };
   return (
-    <div className={`w-full bg-white transition-all duration-200 ease-in-out h-[72px] ${isActive && '!h-[172px]'}`}>
+    <div className={`w-full bg-white transition-all duration-200 font-iran ease-in-out h-[72px] ${isActive && '!h-[172px]'}`}>
       <div
         onClick={activeHandler}
         className={`flex space-x-8 w-full visible justify-center transition-tranform duration-200 ease-in-out items-center cursor-pointer p-4 ${isActive && ' hidden'}`}

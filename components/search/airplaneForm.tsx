@@ -14,8 +14,8 @@ const AirplaneForm: React.FC = (props: Props) => {
   const [endIsValid, setEndIsValid] = useState(true);
   const [endDateIsValid, setEndDateIsValid] = useState(true);
   const [startDateIsValid, setStartDateIsValid] = useState(true);
-  
-  const router = useRouter()
+
+  const router = useRouter();
 
   const swap = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -32,37 +32,39 @@ const AirplaneForm: React.FC = (props: Props) => {
     setStart(newValue);
     setStartIsValid(true);
   };
+  const nextClickHandler = (id: string) => {
+    document.getElementById('endInput')?.focus();
+    console.log('run')
+  };
   const endChangeHandler = (newValue: string) => {
     setEnd(newValue);
     setEndIsValid(true);
   };
   const submitHandler = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    let formIsValid=true;
+    let formIsValid = true;
     if (start.trim().length === 0) {
       setStartIsValid(false);
-      formIsValid=false
+      formIsValid = false;
     }
     if (end.trim().length === 0) {
       setEndIsValid(false);
-      formIsValid=false
+      formIsValid = false;
     }
     if (startDate.trim().length === 0) {
       setStartDateIsValid(false);
-      formIsValid=false
+      formIsValid = false;
     }
-    if (endDate.trim().length === 0) {
+    if (endDate.trim().length === 0 && isTwoWay) {
       setEndDateIsValid(false);
-      formIsValid=false
+      formIsValid = false;
     }
     if (formIsValid) {
-
       router.push({
-        pathname: '/flight',
-        query: { from: 'ahz',to:'shz' },
-      })
+        pathname: "/flight",
+        query: { from: start, to: end },
+      });
     }
-
   };
   return (
     <form className="w-full max-w-full flex items-end space-y-5 py-5 px-16 flex-col h-[140px]">
@@ -80,6 +82,7 @@ const AirplaneForm: React.FC = (props: Props) => {
       <div className="max-w-full flex justify-center items-center flex-row-reverse">
         <div className="flex relative flex-row-reverse space-x-1 items-center justify-end">
           <AutoCompleteInput
+            nextClickHandler={nextClickHandler}
             isValid={startIsValid}
             id="startInput"
             value={start}
@@ -95,6 +98,7 @@ const AirplaneForm: React.FC = (props: Props) => {
             <Swap_Icon />
           </button>
           <AutoCompleteInput
+            nextClickHandler={nextClickHandler}
             isValid={endIsValid}
             id="endInput"
             value={end}

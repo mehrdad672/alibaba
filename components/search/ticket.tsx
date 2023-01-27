@@ -7,8 +7,8 @@ import aseman from "../../public/aseman.png";
 import iranair from "../../public/iranair.png";
 import mahan from "../../public/mahan.png";
 type Props = {
-  from: string;
-  to: string;
+  from: string|string[];
+  to:string|string[];
   depTime: string;
   landTime: string;
   price: number;
