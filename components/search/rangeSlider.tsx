@@ -14,7 +14,7 @@ type Props = {
   change :(value:number[])=>void
 };
 
-const MultiRangeSlider = ({ min, max,change }: Props) => {
+const RangeSlider = ({ min, max,change }: Props) => {
   const mapTime = (digit: number) => {
     if (digit === 0) {
       return [5, 30];
@@ -104,4 +104,4 @@ const MultiRangeSlider = ({ min, max,change }: Props) => {
   );
 };
 
-export default MultiRangeSlider;
+export default RangeSlider;

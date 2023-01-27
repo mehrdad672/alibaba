@@ -1,18 +1,41 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Ticket from "./ticket";
-import MultiRangeSlider from "../multiRangeSlider";
-import RangeSlider from "../multiRangeSlider";
+import RangeFilter from '../rangeFilter'
+import {useAuth} from '../AuthContext'
 type Props = {};
 
 const SearchResults = (props: Props) => {
+  const { minVal, maxVal, maxTimeChange, minTimeChange,filteredMax,filteredMin } = useAuth();
+  const mapTime = (digit: number) => {
+    if (digit === 0) {
+      return [5, 30];
+    }
+    if (digit % 2 === 0) {
+      const time = [5 + digit / 2, 30];
+      return time;
+    } else {
+      const time = [5 + (digit / 2 + 0.5), 0];
+      return time;
+    }
+  };
   const [allTickets, setAllTickets] = useState<any>([]);
+  const [sliderMin, setsliderMin] = useState<number[]>();
+  const [sliderMax, setsliderMax] = useState<number[]>();
   const router = useRouter();
   useEffect(() => {
-    fetch("https://alibaba-45er.vercel.app/api/flights")
+    fetch("http://localhost:3000/api/flights")
       .then((res) => res.json())
       .then((data) => setAllTickets(data));
   }, [router]);
+
+  const onSliderChange = (minmax: number[]) => {
+    setsliderMin(mapTime(minmax[0]));
+    setsliderMax(mapTime(minmax[1]));
+    console.log('test')
+  };
+
+  
 
   const ticketsList = allTickets.map((tic: any) => {
     return (
@@ -39,7 +62,9 @@ const SearchResults = (props: Props) => {
         id="filter-section"
       >
         <div className="flex flex-col justify-center items-center">
-          <RangeSlider min={0} max={48} />
+          <RangeFilter change={onSliderChange} min={0} max={48} /> <br />
+          <h1>{filteredMax}</h1>
+          <h1>{filteredMin}</h1>
         </div>
       </div>
     </div>

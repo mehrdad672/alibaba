@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuth } from "./AuthContext";
 import {
   ChangeEvent,
   FC,
@@ -11,10 +12,18 @@ import {
 type Props = {
   min: number;
   max: number;
-  change :(value:number[])=>void
+  change: (value: number[]) => void;
 };
 
-const MultiRangeSlider = ({ min, max,change }: Props) => {
+const RangeSlider = ({ min, max, change }: Props) => {
+  const {
+    minVal,
+    maxVal,
+    maxTimeChange,
+    minTimeChange,
+    maxFilterChange,
+    minFilterChange,
+  } = useAuth();
   const mapTime = (digit: number) => {
     if (digit === 0) {
       return [5, 30];
@@ -27,8 +36,7 @@ const MultiRangeSlider = ({ min, max,change }: Props) => {
       return time;
     }
   };
-  const [minVal, setMinVal] = useState(0);
-  const [maxVal, setMaxVal] = useState(34);
+
   const [rangeWith, setRangeWidth] = useState<number>(5);
   const minValRef = useRef<HTMLInputElement>(null);
   const maxValRef = useRef<HTMLInputElement>(null);
@@ -38,7 +46,7 @@ const MultiRangeSlider = ({ min, max,change }: Props) => {
 
   useEffect(() => {
     setRangeWidth(Math.round((maxVal - minVal) / 0.34));
-    console.log(`w-[${rangeWith?.toString()}%]`);
+
     if (range.current) {
       range.current.style.left = `${minVal / 0.34}%`;
       range.current.style.width = `${rangeWith - 2}%`;
@@ -50,7 +58,10 @@ const MultiRangeSlider = ({ min, max,change }: Props) => {
       maxDes.current.style.left = `${(maxVal - 2) / 0.34}%`;
     }
   }, [minVal, maxVal]);
-
+  const outChangeHandler = () => {
+    maxFilterChange(maxVal);
+    minFilterChange(minVal);
+  };
   return (
     <div className="mt-10">
       <input
@@ -60,10 +71,10 @@ const MultiRangeSlider = ({ min, max,change }: Props) => {
         step={1}
         value={minVal}
         ref={minValRef}
-        onTouchEnd={()=>change([minVal,maxVal])}
+        onMouseUp={outChangeHandler}
         onChange={(event) => {
           const value = Math.min(+event.target.value, maxVal - 2);
-          setMinVal(value);
+          minTimeChange(value);
 
           event.target.value = value.toString();
         }}
@@ -76,10 +87,10 @@ const MultiRangeSlider = ({ min, max,change }: Props) => {
         step={1}
         value={maxVal}
         ref={maxValRef}
-        onTouchEnd={()=>change([minVal,maxVal])}
+        onMouseUp={outChangeHandler}
         onChange={(event) => {
           const value = Math.max(+event.target.value, minVal + 2);
-          setMaxVal(value);
+          maxTimeChange(value);
 
           event.target.value = value.toString();
         }}
@@ -104,4 +115,4 @@ const MultiRangeSlider = ({ min, max,change }: Props) => {
   );
 };
 
-export default MultiRangeSlider;
+export default RangeSlider;
