@@ -8,11 +8,11 @@ import {
   Train_Icon,
 } from "../../public/svgs";
 import Link from "next/link";
-import Inputd from "./inputItem";
-import AirplaneForm from "./airplaneForm";
-import ForeignAirplaneForm from "./foreignAirplaneForm";
-import TrainForm from "./trainForm";
-import BusForm from "./busForm";
+import Inputd from "./inputs/inputItem";
+import AirplaneForm from "./forms/airplaneForm";
+import ForeignAirplaneForm from "./forms/foreignAirplaneForm";
+import TrainForm from "./forms/trainForm";
+import BusForm from "./forms/busForm";
 
 type Props = {};
 

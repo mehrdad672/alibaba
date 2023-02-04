@@ -1,12 +1,13 @@
+import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
-import { Swap_Icon } from "../../public/svgs";
-import AutoCompleteInput from "./autoCompleteInput";
+import { Swap_Icon } from "../../../public/svgs";
+import AutoCompleteInput from "../inputs/autoCompleteInput";
 type Props = {};
 const TrainForm: React.FC = (props: Props) => {
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
-  const [startDate, setStartDate] = useState<string>();
-  const [endDate, setEndDate] = useState<string>();
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
   const [amount, setAmount] = useState<number | string>("");
   const [isTwoWay, setIsTwoWay] = useState<boolean>(false);
   const [gender, setGender] = useState<string>("both");
@@ -14,12 +15,40 @@ const TrainForm: React.FC = (props: Props) => {
   const [endIsValid, setEndIsValid] = useState(true);
   const [endDateIsValid, setEndDateIsValid] = useState(true);
   const [startDateIsValid, setStartDateIsValid] = useState(true);
+
+  const router = useRouter();
   const swap = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const curStart = start;
     const curEnd = end;
     setEnd(curStart);
     setStart(curEnd);
+  };
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let formIsValid = true;
+    if (start.trim().length === 0) {
+      setStartIsValid(false);
+      formIsValid = false;
+    }
+    if (end.trim().length === 0) {
+      setEndIsValid(false);
+      formIsValid = false;
+    }
+    if (startDate.trim().length === 0) {
+      setStartDateIsValid(false);
+      formIsValid = false;
+    }
+    if (endDate.trim().length === 0 && isTwoWay) {
+      setEndDateIsValid(false);
+      formIsValid = false;
+    }
+    if (formIsValid) {
+      router.push({
+        pathname: "/train",
+        query: { from: start, to: end },
+      });
+    }
   };
   const oneTwoWayHandler = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -34,7 +63,10 @@ const TrainForm: React.FC = (props: Props) => {
     setEndIsValid(true);
   };
   return (
-    <form className="w-full max-w-full flex items-end space-y-5 py-5 px-16 flex-col h-[140px]">
+    <form
+      onSubmit={submitHandler}
+      className="w-full max-w-full flex items-end space-y-5 py-5 px-16 flex-col h-[140px]"
+    >
       <div className="flex flex-row-reverse justify-end">
         <select
           onChange={oneTwoWayHandler}
@@ -86,16 +118,25 @@ const TrainForm: React.FC = (props: Props) => {
         <div className="flex mr-4 ">
           <div className={`relative h-6 w-[120px]`}>
             <input
-              className="peer disabled:bg-gray-100 rounded-l-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
+              className={`peer  ${
+                !endDateIsValid && !endDate
+                  ? "border-rose-500 focus:border-rose-500"
+                  : "border-gray-300 focus:border-black"
+              } disabled:bg-gray-100 focus:ring-transparent focus:border-black rounded-l-xl w-full focus:placeholder-transparent border  p-2 focus:outline-none`}
               type="date"
               id="treturn-date"
               value={endDate}
               disabled={!isTwoWay}
-              onChange={(e) => setEndDate(e.target.value)}
+              onChange={(e) => {
+                setEndDate(e.target.value);
+                setEndDateIsValid(true);
+              }}
             />
             <label
-              className={`transition-all  peer-disabled:bg-gray-100 duration-200  ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
+              className={`transition-all  peer-disabled:bg-gray-100 duration-200  ease-in-out  text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 endDate && "-top-[45%] scale-75"
+              } ${
+                !endDateIsValid && !endDate ? "text-rose-500" : "text-gray-400"
               } peer-focus:scale-75`}
               htmlFor="treturn-date"
             >
@@ -105,11 +146,18 @@ const TrainForm: React.FC = (props: Props) => {
 
           <div className={`relative h-6 w-[120px]`}>
             <input
-              className="peer rounded-r-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
+              className={`peer  ${
+                !startDateIsValid && !startDate
+                  ? "border-rose-500 focus:border-rose-500"
+                  : "border-gray-300 focus:border-black"
+              } disabled:bg-gray-100 focus:ring-transparent focus:border-black rounded-r-xl w-full focus:placeholder-transparent border  p-2 focus:outline-none`}
               type="date"
               id="tleave-date"
               value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
+              onChange={(e) => {
+                setStartDate(e.target.value);
+                setStartDateIsValid(true);
+              }}
             />
             <label
               className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
@@ -124,7 +172,7 @@ const TrainForm: React.FC = (props: Props) => {
         <div className="flex justify-center flex-row-reverse items-center">
           <div className={`relative h-6 w-[120px] mr-3`}>
             <input
-              className="peer w-full text-right rounded-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
+              className="peer w-full text-right rounded-xl focus:ring-transparent focus:border-black focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
               type="number"
               id="tpassengers"
               value={amount}

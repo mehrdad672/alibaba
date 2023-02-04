@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
-import { Swap_Icon } from "../../public/svgs";
-import AutoCompleteInput from "./autoCompleteInput";
+import { Swap_Icon } from "../../../public/svgs";
+import AutoCompleteInput from "../inputs/autoCompleteInput";
 type Props = {};
-const AirplaneForm: React.FC = (props: Props) => {
+const ForeignAirplaneForm: React.FC = (props: Props) => {
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
@@ -61,7 +61,7 @@ const AirplaneForm: React.FC = (props: Props) => {
     }
     if (formIsValid) {
       router.push({
-        pathname: "/flight",
+        pathname: "/foreign",
         query: { from: start, to: end },
       });
     }
@@ -84,10 +84,10 @@ const AirplaneForm: React.FC = (props: Props) => {
           <AutoCompleteInput
            
             isValid={startIsValid}
-            id="startInput"
+            id="fstartInput"
             value={start}
             changeHandler={startChangeHandler}
-            options={["تهران", "اهواز", "شیراز"]}
+            options={["پاریس", "شانگهای", "میلان"]}
             width="212"
             label="مبدا (شهر)"
           />
@@ -100,10 +100,10 @@ const AirplaneForm: React.FC = (props: Props) => {
           <AutoCompleteInput
            
             isValid={endIsValid}
-            id="endInput"
+            id="fendInput"
             value={end}
             changeHandler={endChangeHandler}
-            options={["تهران", "اهواز", "شیراز"]}
+            options={["پاریس", "شانگهای", "میلان"]}
             width="212"
             label="مقصد (شهر)"
           />
@@ -111,9 +111,9 @@ const AirplaneForm: React.FC = (props: Props) => {
         <div className="flex mr-4 ">
           <div className={`relative h-6 w-[120px]`}>
             <input
-              className="peer disabled:bg-gray-100 rounded-l-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
+              className="peer  disabled:bg-gray-100 rounded-l-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:ring-transparent focus:border-black focus:outline-none"
               type="date"
-              id="return-date"
+              id="freturn-date"
               value={endDate}
               disabled={!isTwoWay}
               onChange={(e) => setEndDate(e.target.value)}
@@ -122,7 +122,7 @@ const AirplaneForm: React.FC = (props: Props) => {
               className={`transition-all  peer-disabled:bg-gray-100 duration-200  ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 endDate && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="return-date"
+              htmlFor="freturn-date"
             >
               تاریخ برگشت
             </label>
@@ -130,9 +130,9 @@ const AirplaneForm: React.FC = (props: Props) => {
 
           <div className={`relative h-6 w-[120px]`}>
             <input
-              className="peer rounded-r-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
+              className="peer rounded-r-xl w-full focus:placeholder-transparent border border-gray-300 p-2 focus:ring-transparent focus:border-black focus:outline-none"
               type="date"
-              id="leave-date"
+              id="fleave-date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
             />
@@ -140,7 +140,7 @@ const AirplaneForm: React.FC = (props: Props) => {
               className={`transition-all duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 startDate && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="leave-date"
+              htmlFor="fleave-date"
             >
               تاریخ رفت
             </label>
@@ -149,9 +149,9 @@ const AirplaneForm: React.FC = (props: Props) => {
         <div className="flex justify-center flex-row-reverse items-center">
           <div className={`relative h-6 w-[120px] mr-3`}>
             <input
-              className="peer w-full text-right rounded-xl focus:placeholder-transparent border border-gray-300 p-2 focus:outline-none"
+              className="peer w-full text-right rounded-xl focus:placeholder-transparent border border-gray-300 p-2 focus:ring-transparent focus:border-black focus:outline-none"
               type="number"
-              id="passengers"
+              id="fpassengers"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
@@ -159,7 +159,7 @@ const AirplaneForm: React.FC = (props: Props) => {
               className={`transition-all  duration-200 ease-in-out text-gray-400 text-lg absolute bg-white rounded-full z-10 top-[45%] px-1 right-2 peer-focus:-top-[45%] ${
                 amount && "-top-[45%] scale-75"
               } peer-focus:scale-75`}
-              htmlFor="passengers"
+              htmlFor="fpassengers"
             >
               مسافران
             </label>
@@ -177,4 +177,4 @@ const AirplaneForm: React.FC = (props: Props) => {
   );
 };
 
-export default AirplaneForm;
+export default ForeignAirplaneForm;

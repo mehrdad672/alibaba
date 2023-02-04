@@ -9,13 +9,7 @@ import {
   useEffect,
 } from "react";
 
-type Props = {
-  min: number;
-  max: number;
-  change: (value: number[]) => void;
-};
-
-const RangeSlider = ({ min, max, change }: Props) => {
+const RangeSlider = () => {
   const {
     minVal,
     maxVal,
@@ -37,7 +31,7 @@ const RangeSlider = ({ min, max, change }: Props) => {
     }
   };
 
-  const [rangeWith, setRangeWidth] = useState<number>(5);
+  const [rangeWith, setRangeWidth] = useState<number>(100);
   const minValRef = useRef<HTMLInputElement>(null);
   const maxValRef = useRef<HTMLInputElement>(null);
   const range = useRef<HTMLDivElement>(null);
@@ -102,7 +96,7 @@ const RangeSlider = ({ min, max, change }: Props) => {
         />
         <div
           ref={range}
-          className={`slider__range border-4 rounded-full border-blue-400  w-[${rangeWith?.toString()}%] absolute bg-[#ca2129] z-20 `}
+          className={`slider__range border-4 rounded-full border-blue-400  w-full absolute bg-[#ca2129] z-20 `}
         />
         <span className="absolute -top-8 " ref={minDes}>
           {mapTime(minVal)[0]}:{mapTime(minVal)[1]}

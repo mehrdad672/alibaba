@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Accordions from "../components/Accordions";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
-import Inputd from "../components/search/inputItem";
+import Inputd from "../components/search/inputs/inputItem";
 import Search from "../components/search/Search";
 
 export default function Home() {

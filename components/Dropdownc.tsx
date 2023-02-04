@@ -15,14 +15,13 @@ const Dropdownc = ({ options, label }: Props) => {
   const dropHandler = () => {
     if (drop) {
       setDrop(false);
-      console.log("drop");
     }
   };
   const optionsList = options.map((option) => (
     <li className="border-gray-100 border-b" key={option.title}>
       <Link
         href={option.href}
-        className="block text-right text-gray-500 text-lg  px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+        className="block text-right w-[120px] text-gray-500 text-lg  px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
       >
         {option.title}
       </Link>

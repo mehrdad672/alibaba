@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
-import { Location_Icon } from "../../public/svgs";
+import { Location_Icon } from "../../../public/svgs";
 
 type Props = {
   options: Array<string>;
@@ -72,7 +72,7 @@ const AutoCompleteInput = ({
           !isValid && "!border-rose-500  "
         } relative w-full text-right ${
           isActive && "border-gray-700"
-        } rounded-xl  border border-gray-300 p-2 focus:outline-none`}
+        } rounded-xl  border border-gray-300 p-2 focus:ring-transparent focus:border-black`}
         type="text"
         id={id}
         value={value}

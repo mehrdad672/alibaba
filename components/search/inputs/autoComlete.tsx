@@ -1,5 +1,5 @@
 import React from "react";
-import { Location_Icon } from "../../public/svgs";
+import { Location_Icon } from "../../../public/svgs";
 
 type Props = {
   options: Array<string>;

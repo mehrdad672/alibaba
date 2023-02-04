@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Swap_Icon } from "../../public/svgs";
+import { Swap_Icon } from "../../../public/svgs";
 type Props = {};
 const BusForm = (props: Props) => {
   const [start, setStart] = useState<string>("");
