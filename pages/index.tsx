@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Accordions from "../components/Accordions";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
+import Insurance from "../components/Insurance";
 import Inputd from "../components/search/inputs/inputItem";
 import Search from "../components/search/Search";
 
@@ -25,7 +26,7 @@ export default function Home() {
         <section className="z-30 translate-y-[-80px] font-iran" id="search">
           <Search />
         </section>
-        
+        <Insurance/>
         <section className="font-iran" id="fqa">
           <Accordions />
         </section>

@@ -3,13 +3,12 @@ import React, { useEffect, useState } from "react";
 import Ticket from "./ticket";
 import RangeFilter from "../rangeFilter";
 import { useAuth } from "../AuthContext";
-type Props = {};
+type Props = {
+  transportation: string;
+};
 
 const SearchResults = (props: Props) => {
-  const {
-    filteredMax,
-    filteredMin,
-  } = useAuth();
+  const { filteredMax, filteredMin } = useAuth();
   const mapTime = (digit: number) => {
     if (digit === 0) {
       return [5, 30];
@@ -51,8 +50,8 @@ const SearchResults = (props: Props) => {
   const ticketsList = allTickets.map((tic: any) => {
     return (
       <Ticket
-        from={router.query.from ? router.query.from : ""}
-        to={router.query.to ? router.query.to : ""}
+        from={router.query.from ? router.query.from : "مقصد"}
+        to={router.query.to ? router.query.to : "مبدا"}
         depTime={tic.departureTime}
         landTime={tic.arrivalTime}
         price={tic.price}
@@ -69,7 +68,7 @@ const SearchResults = (props: Props) => {
         {ticketsList}
       </div>
       <div
-        className="w-[350px] p-3 sticky top-20 bg-white rounded-xl border border-gray-200 shadow-md h-1/2 "
+        className="w-[350px] p-3 sticky top-20 bg-white rounded-xl  border border-gray-200 shadow-md h-1/2 "
         id="filter-section"
       >
         <p className=" text-right text-gray-600 font-semibold text-lg px-4 border-b py-2 tracking-[1px] border-b-gray-200 ">

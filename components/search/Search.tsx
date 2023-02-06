@@ -25,21 +25,21 @@ const Search = (props: Props) => {
     var elem = document.getElementById("airplane_tab");
     if (router.asPath === "/") {
       setActiveTab("airplane");
-      document.title = "خرید بلیط هواپیما";
+      window.document.title = "خرید بلیط هواپیما";
     }
     if (router.asPath === "/foreign") {
       setActiveTab("foreign");
-      document.title = "خرید بلیط هواپیمای خارجی";
+      window.document.title = "خرید بلیط هواپیمای خارجی";
       var elem = document.getElementById("fairplane_tab");
     }
     if (router.asPath === "/train") {
       setActiveTab("train");
-      document.title = "خرید بلیط قطار";
+      window.document.title = "خرید بلیط قطار";
       var elem = document.getElementById("train_tab");
     }
-    if (router.asPath === "/bus") {
+    if (router.asPath === "/bus") {  
       setActiveTab("bus");
-      document.title = "خرید بلیط اتوبوس";
+      window.document.title = "خرید بلیط اتوبوس";
       var elem = document.getElementById("bus_tab");
     }
     if (elem) {

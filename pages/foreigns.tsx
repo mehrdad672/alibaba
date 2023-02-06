@@ -1,12 +1,11 @@
-import { useRouter } from "next/router";
 import Header from "../components/Header";
 import QuickSearch from "../components/search/quickSearch";
 import SearchResults from "../components/search/searchResults";
 
 type Props = {};
 
-const flight = (props: Props) => {
-  
+const foreigns = (props: Props) => {
+
   return (
     <>
       <section className="bg-white shadow-lg font-iran">
@@ -24,4 +23,4 @@ const flight = (props: Props) => {
   );
 };
 
-export default flight;
+export default foreigns;

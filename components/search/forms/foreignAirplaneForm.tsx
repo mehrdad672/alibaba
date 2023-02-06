@@ -61,7 +61,7 @@ const ForeignAirplaneForm: React.FC = (props: Props) => {
     }
     if (formIsValid) {
       router.push({
-        pathname: "/foreign",
+        pathname: "/foreigns",
         query: { from: start, to: end },
       });
     }

@@ -45,7 +45,7 @@ const TrainForm: React.FC = (props: Props) => {
     }
     if (formIsValid) {
       router.push({
-        pathname: "/train",
+        pathname: "/trains",
         query: { from: start, to: end },
       });
     }

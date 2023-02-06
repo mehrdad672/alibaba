@@ -63,7 +63,7 @@ const AutoCompleteInput = ({
     </span>
   ));
   return (
-    <div ref={sRef} className={`relative h-6 w-[${width}px]`}>
+    <div ref={sRef} className={`relative  h-6 w-[${width}px]`}>
       <input
         dir="rtl"
         autoComplete="off"
@@ -90,7 +90,7 @@ const AutoCompleteInput = ({
         {label}
       </label>
       <div
-        className={`transition-all duration-100 ease-in absolute top-6 invisible !w-full opacity-100 overflow-y-auto border-gray-300 border rounded-xl shadow-md bg-white z-30 ${
+        className={`transition-all duration-100 ease-in absolute top-6 invisible !w-full opacity-100 overflow-y-auto border-gray-300 border rounded-xl shadow-md bg-white z-50 ${
           isActive && "!top-12 !visible"
         }`}
       >
