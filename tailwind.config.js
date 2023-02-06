@@ -15,6 +15,10 @@ module.exports = {
       fontFamily:{
         iran : ['iran' , 'sans-serif']
     },
+    transitionTimingFunction: {
+      'scroll': 'cubic-bezier(0.64, 0.57, 0.67, 1.53)',
+      'out-expo': 'cubic-bezier(0.19, 1, 0.22, 1)',
+    }
   },
  
 }};
