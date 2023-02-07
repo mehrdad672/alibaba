@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Footer from "../components/footer";
 import Header from "../components/Header";
 import QuickSearch from "../components/search/quickSearch";
 import SearchResults from "../components/search/searchResults";
@@ -20,6 +21,7 @@ const flight = (props: Props) => {
           <SearchResults transportation="flights" />
         </section>
       </main>
+      <Footer/>
     </>
   );
 };

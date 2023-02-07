@@ -1,3 +1,4 @@
+import Footer from "../components/footer";
 import Header from "../components/Header";
 import QuickSearch from "../components/search/quickSearch";
 import SearchResults from "../components/search/searchResults";
@@ -19,6 +20,7 @@ const trains = (props: Props) => {
           <SearchResults transportation="trains" />
         </section>
       </main>
+      <Footer/>
     </>
   );
 };
