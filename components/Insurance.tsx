@@ -5,7 +5,7 @@ type Props = {};
 
 const Insurance = (props: Props) => {
   return (
-    <div className="w-[1200px] mx-auto mb-5 justify-around bg-white rounded-xl border border-gray-200 shadow-md h-36 flex ">
+    <div className="w-[1200px] mx-auto mb-5 -mt-6 justify-around bg-white rounded-xl border border-gray-200 shadow-md h-36 flex ">
       <div className="flex flex-col space-y-3 items-center justify-center">
         <img
           src="https://cdn.alibaba.ir/h2/desktop/assets/images/insurance-icon-61c8b022.svg"

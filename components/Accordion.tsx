@@ -13,7 +13,7 @@ const Accordion = ({ question, answer }: Props) => {
   const [isActive, setIsActive] = useState(false);
   return (
     <div
-      className={`w-[1200px] mx-auto transition-all duration-200 ease-in-out rounded-xl px-8 py-4 border ${
+      className={`w-[1200px] bg-white mx-auto transition-all duration-200 ease-in-out rounded-xl px-8 py-4 border ${
         isActive ? "h-[130px]" : "h-[82px]"
       } border-gray-300  max-w-full z-30`}
     >

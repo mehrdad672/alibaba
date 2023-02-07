@@ -18,7 +18,7 @@ const Scroller = (props: Props) => {
     return () => clearInterval(interval);
   }, [slider]);
   return (
-    <div className="w-[1200px] mt-10 h-[200px] bg-[#fdb713] flex justify-between items-center mx-auto rounded-xl">
+    <div className="w-[1200px] mt-8 h-[200px] bg-[#fdb713] flex justify-between items-center mx-auto rounded-xl">
       <div className="bg-white w-[250px] h-[130px]  rounded-r-xl flex items-center justify-center">
         <span className="flex bg-black text-white items-center justify-center p-1 rouunded-2xl ">
           <ArrowLeftIcon />
@@ -31,7 +31,7 @@ const Scroller = (props: Props) => {
       >
         <div className="relative max-h-[50px] h-[50px] overflow-hidden w-[500px] ">
           <span
-            className={`absolute top-0 ${options[slider]} w-[500px] transition-all duration-200 ease-scroll mx-auto  hover:text-red-500 group group-hover:border border-black`}
+            className={`absolute top-0 ${options[slider]} w-[500px] transition-all duration-300 ease-scroll mx-auto  hover:text-red-500 group group-hover:border border-black`}
           >
             <span className="flex items-center justify-between w-[500px] ">
               <span className="text-5xl w-[100px] font-bold text-black ">
